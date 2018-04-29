@@ -30,7 +30,7 @@ let make = (_children) => {
       <TodoList todos=self.state.todos />
       <input
         value={self.state.newTodo}
-        onChange=(
+        onChange={
           event => {
             self.send(
               ChangeTodo(
@@ -40,14 +40,14 @@ let make = (_children) => {
               ),
             );
           }
-        )
+        }
       />
       <button
-        onClick=(
+        onClick={
           _event => {
             self.send(AddTodo);
           }
-        )
+        }
       >
       {ReasonReact.string("Add todo")}
       </button>
