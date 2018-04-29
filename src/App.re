@@ -8,9 +8,20 @@ type state = {
 
 type action =
   | AddTodo
-  | ChangeTodo(string);
+  | ChangeTodo(string)
+  | RemoveTodo(int);
 
 let component = ReasonReact.reducerComponent("App");
+
+let rec removeByIndex =
+  (~index : int = 0, indexToRemove : int, listOfTodos : list(string)) : list(string) =>
+    switch(listOfTodos) {
+      | [hd, ...tl] => switch(index == indexToRemove) {
+        | true => removeByIndex(~index = (index + 1), indexToRemove, tl)
+        | false => [hd, ...removeByIndex(~index = (index + 1), indexToRemove, tl)]
+        }
+      | [] => []
+    };
 
 let make = (_children) => {
   ...component,
@@ -24,9 +35,15 @@ let make = (_children) => {
       ReasonReact.Update({...state, todos});
     }
   | ChangeTodo(todo) => ReasonReact.Update({...state, newTodo: todo})
+  | RemoveTodo(todoIndex) => {
+      /* let todos = removeByIndex(index = 0, todoIndex, state.todos);
+      ReasonReact.Update({...state, todos}); */
+      ReasonReact.NoUpdate;
+    }
   },
   render: self => {
     let { todos } = self.state;
+    /* let deleteTodo = (todoIndex) => self.send(RemoveTodo(todoIndex)); */
     <div>
       <TodoList todos />
       <input

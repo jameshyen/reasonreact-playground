@@ -10,6 +10,30 @@ var TodoList$ReactTemplate = require("./TodoList.bs.js");
 
 var component = ReasonReact.reducerComponent("App");
 
+function removeByIndex(_$staropt$star, indexToRemove, _listOfTodos) {
+  while(true) {
+    var listOfTodos = _listOfTodos;
+    var $staropt$star = _$staropt$star;
+    var index = $staropt$star ? $staropt$star[0] : 0;
+    if (listOfTodos) {
+      var tl = listOfTodos[1];
+      var match = index === indexToRemove;
+      if (match) {
+        _listOfTodos = tl;
+        _$staropt$star = /* Some */[index + 1 | 0];
+        continue ;
+      } else {
+        return /* :: */[
+                listOfTodos[0],
+                removeByIndex(/* Some */[index + 1 | 0], indexToRemove, tl)
+              ];
+      }
+    } else {
+      return /* [] */0;
+    }
+  };
+}
+
 function make() {
   return /* record */[
           /* debugName */component[/* debugName */0],
@@ -26,7 +50,7 @@ function make() {
               return React.createElement("div", undefined, ReasonReact.element(/* None */0, /* None */0, TodoList$ReactTemplate.make(match[/* todos */0], /* array */[])), React.createElement("input", {
                               value: self[/* state */1][/* newTodo */1],
                               onChange: (function ($$event) {
-                                  return Curry._1(self[/* send */3], /* ChangeTodo */[$$event.target.value]);
+                                  return Curry._1(self[/* send */3], /* ChangeTodo */Block.__(0, [$$event.target.value]));
                                 })
                             }), React.createElement("button", {
                               onClick: (function () {
@@ -51,12 +75,7 @@ function make() {
             }),
           /* retainedProps */component[/* retainedProps */11],
           /* reducer */(function (action, state) {
-              if (action) {
-                return /* Update */Block.__(0, [/* record */[
-                            /* todos */state[/* todos */0],
-                            /* newTodo */action[0]
-                          ]]);
-              } else {
+              if (typeof action === "number") {
                 var todos = Pervasives.$at(state[/* todos */0], /* :: */[
                       state[/* newTodo */1],
                       /* [] */0
@@ -64,6 +83,13 @@ function make() {
                 return /* Update */Block.__(0, [/* record */[
                             /* todos */todos,
                             /* newTodo */state[/* newTodo */1]
+                          ]]);
+              } else if (action.tag) {
+                return /* NoUpdate */0;
+              } else {
+                return /* Update */Block.__(0, [/* record */[
+                            /* todos */state[/* todos */0],
+                            /* newTodo */action[0]
                           ]]);
               }
             }),
@@ -73,5 +99,6 @@ function make() {
 }
 
 exports.component = component;
+exports.removeByIndex = removeByIndex;
 exports.make = make;
 /* component Not a pure module */
