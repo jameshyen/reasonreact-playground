@@ -85,7 +85,11 @@ function make() {
                             /* newTodo */state[/* newTodo */1]
                           ]]);
               } else if (action.tag) {
-                return /* NoUpdate */0;
+                var todos$1 = removeByIndex(/* Some */[0], action[0], state[/* todos */0]);
+                return /* Update */Block.__(0, [/* record */[
+                            /* todos */todos$1,
+                            /* newTodo */state[/* newTodo */1]
+                          ]]);
               } else {
                 return /* Update */Block.__(0, [/* record */[
                             /* todos */state[/* todos */0],
