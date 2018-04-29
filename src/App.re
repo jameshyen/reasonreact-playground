@@ -43,7 +43,7 @@ let make = (_children) => {
     let { todos } = self.state;
     let deleteTodo = (todoIndex) => self.send(RemoveTodo(todoIndex));
     <div>
-      <TodoList todos />
+      <TodoList todos deleteTodo />
       <input
         value={self.state.newTodo}
         onChange={

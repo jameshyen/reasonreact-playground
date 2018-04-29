@@ -47,7 +47,10 @@ function make() {
           /* shouldUpdate */component[/* shouldUpdate */8],
           /* render */(function (self) {
               var match = self[/* state */1];
-              return React.createElement("div", undefined, ReasonReact.element(/* None */0, /* None */0, TodoList$ReactTemplate.make(match[/* todos */0], /* array */[])), React.createElement("input", {
+              var deleteTodo = function (todoIndex) {
+                return Curry._1(self[/* send */3], /* RemoveTodo */Block.__(1, [todoIndex]));
+              };
+              return React.createElement("div", undefined, ReasonReact.element(/* None */0, /* None */0, TodoList$ReactTemplate.make(match[/* todos */0], deleteTodo, /* array */[])), React.createElement("input", {
                               value: self[/* state */1][/* newTodo */1],
                               onChange: (function ($$event) {
                                   return Curry._1(self[/* send */3], /* ChangeTodo */Block.__(0, [$$event.target.value]));

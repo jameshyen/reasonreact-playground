@@ -9,7 +9,7 @@ var Todo$ReactTemplate = require("./Todo.bs.js");
 
 var component = ReasonReact.statelessComponent("TodoList");
 
-function make(todos, _) {
+function make(todos, deleteTodo, _) {
   return /* record */[
           /* debugName */component[/* debugName */0],
           /* reactClassInternal */component[/* reactClassInternal */1],
@@ -21,8 +21,8 @@ function make(todos, _) {
           /* willUpdate */component[/* willUpdate */7],
           /* shouldUpdate */component[/* shouldUpdate */8],
           /* render */(function () {
-              return React.createElement("ul", undefined, $$Array.of_list(List.map((function (todo) {
-                                    return ReasonReact.element(/* None */0, /* None */0, Todo$ReactTemplate.make(todo, /* array */[]));
+              return React.createElement("ul", undefined, $$Array.of_list(List.mapi((function (index, todo) {
+                                    return ReasonReact.element(/* None */0, /* None */0, Todo$ReactTemplate.make(todo, deleteTodo, index, /* array */[]));
                                   }), todos)));
             }),
           /* initialState */component[/* initialState */10],
