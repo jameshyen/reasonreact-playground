@@ -25,9 +25,10 @@ let make = (_children) => {
     }
   | ChangeTodo(todo) => ReasonReact.Update({...state, newTodo: todo})
   },
-  render: self => 
+  render: self => {
+    let { todos } = self.state;
     <div>
-      <TodoList todos=self.state.todos />
+      <TodoList todos />
       <input
         value={self.state.newTodo}
         onChange={
@@ -51,5 +52,6 @@ let make = (_children) => {
       >
       {ReasonReact.string("Add todo")}
       </button>
-    </div>,
+    </div>;
+  },
 };
