@@ -4,11 +4,13 @@
 var Block = require("bs-platform/lib/js/block.js");
 var Curry = require("bs-platform/lib/js/curry.js");
 var React = require("react");
+var Pervasives = require("bs-platform/lib/js/pervasives.js");
 var ReasonReact = require("reason-react/src/ReasonReact.js");
+var TodoList$ReactTemplate = require("./TodoList.bs.js");
 
-var component = ReasonReact.reducerComponent("Example");
+var component = ReasonReact.reducerComponent("App");
 
-function make(greeting, _) {
+function make() {
   return /* record */[
           /* debugName */component[/* debugName */0],
           /* reactClassInternal */component[/* reactClassInternal */1],
@@ -20,35 +22,47 @@ function make(greeting, _) {
           /* willUpdate */component[/* willUpdate */7],
           /* shouldUpdate */component[/* shouldUpdate */8],
           /* render */(function (self) {
-              var message = "You've clicked this " + (String(self[/* state */1][/* count */0]) + " times(s)");
-              var match = self[/* state */1][/* show */1];
-              return React.createElement("div", undefined, React.createElement("button", {
-                              onClick: (function () {
-                                  return Curry._1(self[/* send */3], /* Click */0);
+              return React.createElement("div", undefined, ReasonReact.element(/* None */0, /* None */0, TodoList$ReactTemplate.make(self[/* state */1][/* todos */0], /* array */[])), React.createElement("input", {
+                              value: self[/* state */1][/* newTodo */1],
+                              onChange: (function ($$event) {
+                                  return Curry._1(self[/* send */3], /* ChangeTodo */[$$event.target.value]);
                                 })
-                            }, message), React.createElement("button", {
+                            }), React.createElement("button", {
                               onClick: (function () {
-                                  return Curry._1(self[/* send */3], /* Toggle */1);
+                                  return Curry._1(self[/* send */3], /* AddTodo */0);
                                 })
-                            }, "Toggle greeting"), match ? greeting : null);
+                            }, "Add todo"));
             }),
           /* initialState */(function () {
               return /* record */[
-                      /* count */0,
-                      /* show */true
+                      /* todos : :: */[
+                        "Make food",
+                        /* :: */[
+                          "Exercise",
+                          /* :: */[
+                            "Sleep",
+                            /* [] */0
+                          ]
+                        ]
+                      ],
+                      /* newTodo */""
                     ];
             }),
           /* retainedProps */component[/* retainedProps */11],
           /* reducer */(function (action, state) {
               if (action) {
                 return /* Update */Block.__(0, [/* record */[
-                            /* count */state[/* count */0],
-                            /* show */!state[/* show */1]
+                            /* todos */state[/* todos */0],
+                            /* newTodo */action[0]
                           ]]);
               } else {
+                var todos = Pervasives.$at(state[/* todos */0], /* :: */[
+                      state[/* newTodo */1],
+                      /* [] */0
+                    ]);
                 return /* Update */Block.__(0, [/* record */[
-                            /* count */state[/* count */0] + 1 | 0,
-                            /* show */state[/* show */1]
+                            /* todos */todos,
+                            /* newTodo */state[/* newTodo */1]
                           ]]);
               }
             }),
