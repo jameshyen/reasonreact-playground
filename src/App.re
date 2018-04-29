@@ -1,3 +1,6 @@
+/* https://github.com/reasonml-community/reason-react-example/blob/master/src/todomvc/App.re */
+/* https://jaredforsyth.com/posts/a-reason-react-tutorial/#17-rendering-a-list */
+
 type state = {
   todos: list(string),
   newTodo: string,
